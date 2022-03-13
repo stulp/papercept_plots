@@ -2,7 +2,7 @@
 
 One of the perks of being on the Editorial Board of IEEE conferences is that is makes you feel 25 years younger, because papercept's browser-based interface gives one regular flashbacks to the 90s. However, to get a quick visual overview of progress, the interface for Editors is not ideal. The aim of this Python script is to parse and visualize the "Submissions overview" HTML page in papercept.
 
-This page explains the usage of the script for Editors, and also contains an "Unofficial guide for Associate Editors" which I as Editor sent to AE newcomers.
+This page explains the usage of the script for Editors, and also contains an ["Unofficial guide for Associate Editors"](https://github.com/stulp/papercept_plots#unofficial-guide-for-associate-editors) which I as Editor send to AE newcomers.
 
 ## Basic Usage (on one HTML file)
 
