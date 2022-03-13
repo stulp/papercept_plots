@@ -2,9 +2,9 @@
 
 One of the perks of being on the Editorial Board of IEEE conferences is that is makes you feel 25 years younger, because papercept's browser-based interface gives one regular flashbacks to the 90s. However, to get a quick visual overview of progress, the interface for Editors is not ideal. The aim of this Python script is to parse and visualize the "Submissions overview" HTML page in papercept.
 
-This page explains the usage of the script for Editors, and also contains an "Inofficial guide for Associate Editors" which I as Editor sent to AE newcomers.
+This page explains the usage of the script for Editors, and also contains an "Unofficial guide for Associate Editors" which I as Editor sent to AE newcomers.
 
-## Basic Usage (on one html file)
+## Basic Usage (on one HTML file)
 
 To visualize the status of the different papers, go to the "Submissions overview" view as an Editor (which lists all the papers), and download that HTML file. Then call the following:
 
@@ -65,7 +65,7 @@ To generate one PNG file for each HTML file, call `papercept_plot` on that direc
 python3 papercept_plot.py html/
 ```
 
-## Inofficial guide for Associate Editors
+## Unofficial guide for Associate Editors
 
 For what it's worth, here is my strategy for finding reviewers. Please note that this is my personal strategy based on some years of experience as AE, not IEEE policy. In any case, read the official info for AEs before reading this. 
 
