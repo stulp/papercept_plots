@@ -6,12 +6,11 @@ import dateutil
 import os
 import numpy as np
 import codecs
-from operator import add  # map() + add()
 from matplotlib import pyplot as plt
 
 # fmt: off
 
-year = 2021
+year = 2022
 deadlines = {
     "start":     datetime.date(year, 3,  9),  # Editor has assigned papers to AEs
     "confirmed": datetime.date(year, 3, 20),  # AE should have >=2 reviewers per paper
