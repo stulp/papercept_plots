@@ -216,6 +216,7 @@ def plot_papers(papers, file_date):
     keys = list(papers[0].n_reviews.keys())
     plt.xticks(x_ticks, keys[:3])
     plt.ylabel("#reviews")
+    #plt.ylim([0, 250])
     ax.set_title("# requests (total)")
 
 
