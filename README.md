@@ -12,6 +12,14 @@ To visualize the status of the different papers, go to the "Submissions overview
 python3 papercept_plot.py 'Submissions overview.html'
 ```
 
+or 
+
+```
+python3 papercept_plot.py 'Submissions_overview_2021-03-13.html'
+```
+
+The advantage of adding the date to the filename is that papers that are overdue are listed and plotted in red in the graphs.
+
 ### Output during the first phase 
 
 During the first phase of the process (AEs should find at least 2 confirmed reviewers per paper), this plots the graphs below. The pie chart shows at a glance that 7 papers have 0 confirmed reviewers, and 22 paper have 1 confirmed reviewer on 2021-03-21. They are plotted in red, as these papers are overdue.
