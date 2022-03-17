@@ -121,8 +121,12 @@ def parse_date(filename_html):
     
     filename_html -- Name of file to parse.
     """
+    
+    match = re.search(r"\d{4}-\d{2}-\d{2}", filename_html)
+    if not match:
+        return None
 
-    match_date = re.search(r"\d{4}-\d{2}-\d{2}", filename_html).group()
+    match_date = match.group()
     file_date = dateutil.parser.parse(match_date).date()
     return file_date
 
@@ -165,14 +169,14 @@ def plot_papers(papers, file_date):
     """Plot the data for one file.
 
     papers -- A list of papers (list) 
-    file_date -- Date for which this information is valid
+    file_date -- Date for which this information is valid. None if unknown.
     
     returns the fig on which the data was plotted.
     """
     n_papers = len(papers)
 
     # If deadline for submitting reviews has passed yet: plot reports also
-    submitted_deadline_passed = file_date > deadlines["submitted"]
+    submitted_deadline_passed = file_date > deadlines["submitted"] if file_date else None
 
     # Determine number of columns
     n_cols = 2
@@ -183,9 +187,10 @@ def plot_papers(papers, file_date):
     # Prepare figure
     ax_size = 4  # cm
     fig = plt.figure(figsize=(n_cols * ax_size, n_rows * ax_size))
-    tdelta = file_date - deadlines["start"]
-    # Date as title of the figure
-    fig.suptitle(f"day: {tdelta.days}   date: {file_date}")
+    if file_date:
+        tdelta = file_date - deadlines["start"]
+        # Date as title of the figure
+        fig.suptitle(f"day: {tdelta.days}   date: {file_date}")
 
     #########################################################
     # Corporate Design (cd) colors from German Aerospace Center (DLR)
@@ -235,7 +240,7 @@ def plot_papers(papers, file_date):
     data_confirmed = [paper.n_reviews["confirmed"] for paper in papers]
     N, bins = np.histogram(data_confirmed, bins)
 
-    deadline_color = "red" if file_date > deadlines["confirmed"] else "blue"
+    deadline_color = "red" if file_date and file_date > deadlines["confirmed"] else "blue"
     # 0 or 1 reviewers: red or blue depending on whether overdue
     cur_colors = [cd[deadline_color][0], cd[deadline_color][1]]
     # 2,3,4,>= 5 reviews (more than 3 not recommended)
@@ -257,7 +262,7 @@ def plot_papers(papers, file_date):
     data_submitted = [paper.n_reviews["submitted"] for paper in papers]
     N, bins = np.histogram(np.array(data_submitted), bins)
 
-    deadline_color = "red" if file_date > deadlines["submitted"] else "blue"
+    deadline_color = "red" if file_date and file_date > deadlines["submitted"] else "blue"
     cur_colors[0] = cd[deadline_color][0]
     cur_colors[1] = cd[deadline_color][1]
     
@@ -280,8 +285,8 @@ def plot_papers(papers, file_date):
         labels[ii] if data_reports[ii] > 0 else "" for ii in range(len(data_reports))
     ]
 
-    deadline_color1 = "red" if file_date > deadlines["submitted"] else "blue"
-    deadline_color2 = "red" if file_date > deadlines["report"] else "blue"
+    deadline_color1 = "red" if file_date and file_date > deadlines["submitted"] else "blue"
+    deadline_color2 = "red" if file_date and file_date > deadlines["report"] else "blue"
     cur_colors = [cd[deadline_color1][0], cd[deadline_color2][1], cd["green"][1]]
 
     my_pie(ax, data_reports, cur_colors, labels, 10, 0.6)
@@ -295,8 +300,10 @@ def print_overdue_papers(papers, file_date):
     """Print papers which are overdue
 
     papers -- A list of papers (list) 
-    file_date -- Date for which this information is valid
+    file_date -- Date for which this information is valid. None if unknown.
     """
+    if not file_date:
+        return
 
     for phase in ["confirmed", "submitted"]:
 
@@ -329,7 +336,8 @@ if __name__ == "__main__":
         filename_html = args.input  # It's a single file.
         file_date = parse_date(filename_html)
         papers = parse_papers(filename_html)
-        print_overdue_papers(papers, file_date)
+        if file_date:
+            print_overdue_papers(papers, file_date)
         plot_papers(papers, file_date)
         plt.show()
 
