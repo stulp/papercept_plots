@@ -15,7 +15,7 @@ python3 papercept_plot.py 'Submissions overview.html'
 or 
 
 ```
-python3 papercept_plot.py 'Submissions_overview_2021-03-13.html'
+python3 papercept_plot.py 'Submissions_overview_2021-03-21.html'
 ```
 
 The advantage of adding the date to the filename is that papers that are overdue are listed and plotted in red in the graphs.
